@@ -21,6 +21,14 @@ type ToolchainStatusStatus struct {
 	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
 	// Add custom validation using kubebuilder tags: https://book.kubebuilder.io/beyond_basics/generating_crd.html
 
+	// MemberStatus is an array of current toolchain member cluster status conditions
+	// Supported condition types: ConditionReady
+	// +optional
+	// +patchMergeKey=type
+	// +patchStrategy=merge
+	// +listType
+	MemberStatus []MemberStatus `json:"memberstatus,omitempty" patchStrategy:"merge" patchMergeKey:"type"`
+
 	// Conditions is an array of current toolchain status conditions
 	// Supported condition types: ConditionReady
 	// +optional
@@ -34,8 +42,10 @@ type ToolchainStatusStatus struct {
 
 // ToolchainStatus is used to track overall toolchain status
 // +k8s:openapi-gen=true
+// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Namespaced
-// +kubebuilder:printcolumn:name="Status",type="string",JSONPath=`.status.conditions[?(@.type=="Ready")].reason`
+// +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=`.status.conditions[?(@.type=="Ready")].status`
+// +kubebuilder:printcolumn:name="Reason",type="string",JSONPath=`.status.conditions[?(@.type=="Ready")].reason`
 // +kubebuilder:validation:XPreserveUnknownFields
 // +operator-sdk:gen-csv:customresourcedefinitions.displayName="CodeReady Toolchain Status"
 type ToolchainStatus struct {

@@ -15,7 +15,7 @@ type MemberStatusSpec struct {
 	// spec intentionally left empty since only the status fields will be used for reporting status of the toolchain
 }
 
-// MemberStatusStatus defines the observed state of the overall toolchain status
+// MemberStatusStatus defines the observed state of the toolchain member status
 // +k8s:openapi-gen=true
 type MemberStatusStatus struct {
 	// Important: Run "operator-sdk generate k8s" to regenerate code after modifying this file
@@ -32,12 +32,14 @@ type MemberStatusStatus struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// MemberStatus is used to track overall toolchain status
+// MemberStatus is used to track toolchain member status
 // +k8s:openapi-gen=true
+// +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Namespaced
-// +kubebuilder:printcolumn:name="Status",type="string",JSONPath=`.status.conditions[?(@.type=="Ready")].reason`
+// +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=`.status.conditions[?(@.type=="Ready")].status`
+// +kubebuilder:printcolumn:name="Reason",type="string",JSONPath=`.status.conditions[?(@.type=="Ready")].reason`
 // +kubebuilder:validation:XPreserveUnknownFields
-// +operator-sdk:gen-csv:customresourcedefinitions.displayName="CodeReady Toolchain Status"
+// +operator-sdk:gen-csv:customresourcedefinitions.displayName="CodeReady Toolchain Member Status"
 type MemberStatus struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
