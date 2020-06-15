@@ -4,8 +4,8 @@ API_FULL_GROUPNAME=toolchain.dev.openshift.com
 API_VERSION:=v1alpha1
 
 # how to dispatch the CRD files per repository (space-separated lists)
-HOST_CLUSTER_CRDS:=masteruserrecord nstemplatetier usersignup registrationservice banneduser changetierrequest notification tiertemplate
-MEMBER_CLUSTER_CRDS:=useraccount nstemplateset
+HOST_CLUSTER_CRDS:=masteruserrecord nstemplatetier usersignup registrationservice banneduser changetierrequest notification tiertemplate toolchainstatus
+MEMBER_CLUSTER_CRDS:=useraccount nstemplateset memberstatus
 
 .PHONY: generate
 ## Generate deepcopy, openapi and CRD files after the API was modified
@@ -37,8 +37,8 @@ generate-openapi:
 # and 'member-operator` repositories and give them the name of the current branch in this repo.
 # The developer would have 3 branches with the same name and could then push to GitHub at the 
 # same time...
-host_repo_status := $(shell cd ../host-operator && git status -s | grep -v deploy/crds)
-member_repo_status := $(shell cd ../member-operator && git status -s | grep -v deploy/crds)
+host_repo_status := $(shell cd ../host-operator && git status -s | grep deploy/TEMPORARILY_DISABLED)
+member_repo_status := $(shell cd ../member-operator && git status -s | grep deploy/TEMPORARILY_DISABLED)
 
 PHONY: generate-csv
 generate-csv:
