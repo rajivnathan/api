@@ -130,6 +130,19 @@ type UserSignupStatus struct {
 	// CompliantUsername is used to store the transformed, DNS-1123 compliant username
 	// +optional
 	CompliantUsername string `json:"compliantUsername,omitempty"`
+
+	// Metrics is used to track metrics-related data of this usersignup
+	// +optional
+	Metrics *MetricsStatus `json:"metrics,omitempty"`
+}
+
+// MetricsStatus contains fields used to track metrics-related data like whether a metric has been counted already
+type MetricsStatus struct {
+	// MetricsRegistry uses metric names as keys. The values indicate whether this resource has been counted for
+	// the associated metric.
+	// +optional
+	// +mapType=atomic
+	MetricsRegistry map[string]string `json:"metricKeyValues,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

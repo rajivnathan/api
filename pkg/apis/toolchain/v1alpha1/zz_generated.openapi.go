@@ -2530,10 +2530,16 @@ func schema_pkg_apis_toolchain_v1alpha1_UserSignupStatus(ref common.ReferenceCal
 							Format:      "",
 						},
 					},
+					"metrics": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Metrics is used to track metrics-related data of this usersignup",
+							Ref:         ref("github.com/codeready-toolchain/api/pkg/apis/toolchain/v1alpha1.MetricsStatus"),
+						},
+					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"github.com/codeready-toolchain/api/pkg/apis/toolchain/v1alpha1.Condition"},
+			"github.com/codeready-toolchain/api/pkg/apis/toolchain/v1alpha1.Condition", "github.com/codeready-toolchain/api/pkg/apis/toolchain/v1alpha1.MetricsStatus"},
 	}
 }
