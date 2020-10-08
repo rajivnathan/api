@@ -142,7 +142,7 @@ type MetricsStatus struct {
 	// the associated metric.
 	// +optional
 	// +mapType=atomic
-	MetricsRegistry map[string]string `json:"metricKeyValues,omitempty"`
+	MetricsRegistry map[string]string `json:"metricsRegistry,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
